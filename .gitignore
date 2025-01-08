@@ -398,3 +398,26 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+#---------------------------------------
+#React JS
+
+# dependencies
+leetcode-random-question/node_modules/
+leetcode-random-question/.pnp
+.pnp.js
+
+# testing
+leetcode-random-question/coverage
+
+# production
+leetcode-random-question/build/
+
+
+# Logs
+*.log
+
+# misc
+.DS_Store
+.env
