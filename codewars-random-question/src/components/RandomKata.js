@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import DOMPurify from 'dompurify';
+import marked from 'marked';
 
 const RandomKata = () => {
   const [kata, setKata] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // List of common kata IDs to randomly select from
   const kataIds = [
     'valid-braces',
     'multiples-of-3-and-5',
@@ -17,12 +18,20 @@ const RandomKata = () => {
     'highest-and-lowest'
   ];
 
+  const formatDescription = (description) => {
+    const cleanHtml = DOMPurify.sanitize(marked(description));
+    return cleanHtml;
+  };
+
   const getRandomKata = async () => {
     setLoading(true);
     try {
       const randomId = kataIds[Math.floor(Math.random() * kataIds.length)];
       const response = await axios.get(`https://www.codewars.com/api/v1/code-challenges/${randomId}`);
-      setKata(response.data);
+      setKata({
+        ...response.data,
+        description: formatDescription(response.data.description)
+      });
     } catch (error) {
       console.error('Error fetching kata:', error);
     }
@@ -45,7 +54,10 @@ const RandomKata = () => {
           <p><strong>Difficulty:</strong> {kata.rank?.name}</p>
           <p><strong>Category:</strong> {kata.category}</p>
           <p><strong>Description:</strong></p>
-          <div dangerouslySetInnerHTML={{ __html: kata.description }} />
+          <div 
+            className="kata-description"
+            dangerouslySetInnerHTML={{ __html: kata.description }} 
+          />
           <p><strong>Languages:</strong> {kata.languages.join(', ')}</p>
           <p><strong>Total Completed:</strong> {kata.totalCompleted}</p>
           <a 
