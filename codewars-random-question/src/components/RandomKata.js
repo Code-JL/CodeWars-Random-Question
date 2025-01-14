@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
-import marked from 'marked';
+import { marked } from 'marked';
+
 
 const RandomKata = () => {
   const [kata, setKata] = useState(null);
