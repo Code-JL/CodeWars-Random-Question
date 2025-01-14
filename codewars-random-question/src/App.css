@@ -1,4 +1,14 @@
 :root {
+    /* Light Theme */
+    --light-bg: #ecf0f1;
+    --light-text: #2c3e50;
+    --light-card: #ffffff;
+    
+    /* Dark Theme */
+    --dark-bg: #1a202c;
+    --dark-text: #f7fafc;
+    --dark-card: #2d3748;
+
   /* Modern Color Palette */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
@@ -9,6 +19,68 @@
   --text-secondary: #7f8c8d;
   --background-primary: #ecf0f1;
   --card-bg: #ffffff;
+}
+
+/* Theme Classes */
+.theme-light {
+  --background-primary: var(--light-bg);
+  --text-primary: var(--light-text);
+  --card-bg: var(--light-card);
+}
+
+.theme-dark {
+  --background-primary: var(--dark-bg);
+  --text-primary: var(--dark-text);
+  --card-bg: var(--dark-card);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px;
+  border-radius: 50%;
+  border: none;
+  background: var(--card-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Difficulty Selector */
+.difficulty-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.difficulty-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--difficulty-color);
+  border: 2px solid var(--difficulty-color);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.difficulty-btn.selected {
+  background: var(--difficulty-color);
+  color: white;
+}
+
+.difficulty-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -235,6 +307,28 @@ body {
 .language-select .select__option--is-focused {
   background: rgba(52, 152, 219, 0.1);
 }
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--background-primary);
+  border-top: 5px solid var(--secondary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 @media (max-width: 768px) {
   .kata-grid {
