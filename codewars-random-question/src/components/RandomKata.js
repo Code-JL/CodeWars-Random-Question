@@ -44,53 +44,59 @@ const RandomKata = () => {
     };
 
     return (
-        <div className="kata-container">
-            <h1>Random Codewars Kata</h1>
-            <button 
-                onClick={getRandomKata}
-                disabled={loading}
-                className="fetch-button"
-            >
-                {loading ? 'Loading...' : 'Get Random Kata'}
-            </button>
+        <>
+            <header className="header">
+                <h1>Codewars Challenge Generator</h1>
+                <p>Level up your coding skills with random challenges</p>
+            </header>
+            
+            <div className="kata-container">
+                <button 
+                    onClick={getRandomKata}
+                    disabled={loading}
+                    className="fetch-button"
+                >
+                    {loading ? 'Loading...' : 'Get Random Kata'}
+                </button>
 
-            {kata && (
-                <div className="kata-details">
-                    <div className="kata-grid">
-                        <div className="kata-info">
-                            <h2>{kata.name}</h2>
-                            <p><strong>Difficulty:</strong> {kata.rank?.name}</p>
-                            <p><strong>Category:</strong> {kata.category}</p>
-                            <p><strong>Languages:</strong> {kata.languages.join(', ')}</p>
-                            <p><strong>Total Completed:</strong> {kata.totalCompleted}</p>
+                {kata && (
+                    <div className="kata-details">
+                        <div className="kata-grid">
+                            <div className="kata-info">
+                                <h2>{kata.name}</h2>
+                                <p><strong>Difficulty:</strong> {kata.rank?.name}</p>
+                                <p><strong>Category:</strong> {kata.category}</p>
+                                <p><strong>Languages:</strong> {kata.languages.join(', ')}</p>
+                                <p><strong>Total Completed:</strong> {kata.totalCompleted}</p>
+                            </div>
+                            
+                            <div className="kata-description-container">
+                                <p><strong>Description:</strong></p>
+                                <div 
+                                    className={`kata-description ${expanded ? 'expanded' : ''}`}
+                                    dangerouslySetInnerHTML={{ __html: kata.description }} 
+                                />
+                                <button 
+                                    className="read-more-btn"
+                                    onClick={() => setExpanded(!expanded)}
+                                >
+                                    {expanded ? 'Show Less' : 'Read More...'}
+                                </button>
+                            </div>
                         </div>
                         
-                        <div className="kata-description-container">
-                            <p><strong>Description:</strong></p>
-                            <div 
-                                className={`kata-description ${expanded ? 'expanded' : ''}`}
-                                dangerouslySetInnerHTML={{ __html: kata.description }} 
-                            />
-                            <button 
-                                className="read-more-btn"
-                                onClick={() => setExpanded(!expanded)}
-                            >
-                                {expanded ? 'Show Less' : 'Read More...'}
-                            </button>
-                        </div>
+                        <a 
+                            href={kata.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="solve-button"
+                        >
+                            Solve this kata
+                        </a>
                     </div>
-                    
-                    <a 
-                        href={kata.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="solve-button"
-                    >
-                        Solve this kata
-                    </a>
-                </div>
-            )}
-        </div>
+                )}
+            </div>
+        </>
     );
 };
 
