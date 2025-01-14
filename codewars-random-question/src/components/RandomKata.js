@@ -5,8 +5,9 @@ import { marked } from 'marked';
 
 
 const RandomKata = () => {
-  const [kata, setKata] = useState(null);
-  const [loading, setLoading] = useState(false);
+    const [kata, setKata] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [expanded, setExpanded] = useState(false);
 
   const kataIds = [
     'valid-braces',
@@ -24,6 +25,7 @@ const RandomKata = () => {
     return cleanHtml;
   };
 
+
   const getRandomKata = async () => {
     setLoading(true);
     try {
@@ -38,6 +40,7 @@ const RandomKata = () => {
     }
     setLoading(false);
   };
+  
 
   return (
     <div className="kata-container">
@@ -45,26 +48,42 @@ const RandomKata = () => {
       <button 
         onClick={getRandomKata}
         disabled={loading}
+        className="fetch-button"
       >
         {loading ? 'Loading...' : 'Get Random Kata'}
       </button>
 
       {kata && (
         <div className="kata-details">
-          <h2>{kata.name}</h2>
-          <p><strong>Difficulty:</strong> {kata.rank?.name}</p>
-          <p><strong>Category:</strong> {kata.category}</p>
-          <p><strong>Description:</strong></p>
-          <div 
-            className="kata-description"
-            dangerouslySetInnerHTML={{ __html: kata.description }} 
-          />
-          <p><strong>Languages:</strong> {kata.languages.join(', ')}</p>
-          <p><strong>Total Completed:</strong> {kata.totalCompleted}</p>
+          <div className="kata-grid">
+            <div className="kata-info">
+              <h2>{kata.name}</h2>
+              <p><strong>Difficulty:</strong> {kata.rank?.name}</p>
+              <p><strong>Category:</strong> {kata.category}</p>
+              <p><strong>Languages:</strong> {kata.languages.join(', ')}</p>
+              <p><strong>Total Completed:</strong> {kata.totalCompleted}</p>
+            </div>
+            
+            <div className="kata-description-container">
+              <p><strong>Description:</strong></p>
+              <div 
+                className={`kata-description ${expanded ? 'expanded' : ''}`}
+                dangerouslySetInnerHTML={{ __html: kata.description }} 
+              />
+              <button 
+                className="read-more-btn"
+                onClick={() => setExpanded(!expanded)}
+              >
+                {expanded ? 'Show Less' : 'Read More...'}
+              </button>
+            </div>
+          </div>
+          
           <a 
             href={kata.url}
             target="_blank"
             rel="noopener noreferrer"
+            className="solve-button"
           >
             Solve this kata
           </a>
