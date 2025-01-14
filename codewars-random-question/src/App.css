@@ -1,15 +1,21 @@
 :root {
-  --primary-color: #2c3e50;
-  --secondary-color: #3498db;
-  --background-color: #ecf0f1;
-  --text-color: #2c3e50;
-  --accent-color: #e74c3c;
+  /* Modern Color Palette */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --primary-gradient: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  --secondary-gradient: linear-gradient(135deg, #3498db 0%, #4CAF50 100%);
+  --accent-gradient: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  --text-primary: #2c3e50;
+  --text-secondary: #7f8c8d;
+  --background-primary: #ecf0f1;
+  --card-bg: #ffffff;
 }
 
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: 'Roboto', sans-serif;
+  background-image: radial-gradient(circle at 10% 20%, #ecf0f1 0%, #bdc3c7 100%);
+  color: var(--text-primary);
+  font-family: 'Inter', 'Roboto', sans-serif;
+  min-height: 100vh;
 }
 
 .App {
@@ -20,11 +26,11 @@ body {
 }
 
 .header {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  padding: 2rem;
+  background: var(--primary-gradient);
+  padding: 2.5rem;
   margin-bottom: 2rem;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
@@ -33,59 +39,71 @@ body {
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
+  font-weight: 800;
 }
 
 .header p {
   color: rgba(255, 255, 255, 0.9);
   margin: 10px 0 0;
+  font-size: 1.1rem;
 }
-
 
 .kata-container {
   margin-top: 20px;
 }
 
+.language-filter {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 500px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.language-select {
+  text-align: left;
+}
+
 .kata-container button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 16px;
-  background-color: #4CAF50;
+  background: var(--secondary-gradient);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
   margin: 20px 0;
-  background: var(--secondary-color);
+  font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .kata-container button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-
 .kata-container button:disabled {
-  background-color: #cccccc;
+  background: #cccccc;
   cursor: not-allowed;
 }
 
 .kata-details {
+  background: var(--card-bg);
   text-align: left;
   margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
-}
-
-.kata-details h2 {
-  color: #333;
 }
 
 .kata-details:hover {
   transform: translateY(-5px);
+}
+
+.kata-details h2 {
+  color: var(--text-primary);
 }
 
 .kata-grid {
@@ -97,9 +115,10 @@ body {
 
 .kata-info {
   padding: 20px;
-  background: #f8f9fa;
-  border-radius: 8px;
+  background: var(--background-primary);
+  border-radius: 16px;
   height: fit-content;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 }
 
 .kata-description-container {
@@ -112,8 +131,8 @@ body {
   transition: max-height 0.3s ease-out;
   position: relative;
   padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
+  background-color: var(--background-primary);
+  border-radius: 16px;
   margin: 15px 0;
 }
 
@@ -128,7 +147,7 @@ body {
   left: 0;
   width: 100%;
   height: 100px;
-  background: linear-gradient(transparent, #f8f9fa);
+  background: linear-gradient(transparent, var(--background-primary));
   pointer-events: none;
 }
 
@@ -136,38 +155,49 @@ body {
   display: block;
   margin: 10px auto;
   padding: 8px 16px;
-  background: #007bff;
+  background: var(--secondary-gradient);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  font-weight: 600;
 }
 
 .read-more-btn:hover {
-  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .solve-button {
-  background: var(--accent-color) !important;
+  background: var(--accent-gradient) !important;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  margin-top: 20px;
 }
 
 .solve-button:hover {
-  background: #c0392b !important;
   transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .kata-description pre {
   background-color: #282c34;
   color: #fff;
   padding: 15px;
-  border-radius: 4px;
+  border-radius: 12px;
   overflow-x: auto;
   max-width: 100%;
   white-space: pre-wrap;
   word-wrap: break-word;
   font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .kata-description ul, 
@@ -184,36 +214,38 @@ body {
 .kata-description code {
   background-color: #e9ecef;
   padding: 2px 4px;
-  border-radius: 3px;
+  border-radius: 6px;
   font-family: monospace;
 }
 
-.kata-details a {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
+/* Custom styling for react-select */
+.language-select .select__control {
+  background: var(--card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.kata-details a:hover {
-  background-color: #0056b3;
+.language-select .select__menu {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.language-filter {
-  margin: 20px auto;
-  max-width: 500px;
+.language-select .select__option--is-focused {
+  background: rgba(52, 152, 219, 0.1);
 }
-
-.language-select {
-  text-align: left;
-}
-
 
 @media (max-width: 768px) {
   .kata-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .App {
+    padding: 10px;
   }
 }
