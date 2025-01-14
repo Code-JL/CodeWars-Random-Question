@@ -2,12 +2,27 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
 import { marked } from 'marked';
+import Select from 'react-select';
 
 const RandomKata = () => {
     const [kata, setKata] = useState(null);
     const [loading, setLoading] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [kataPool, setKataPool] = useState([]);
+    const [selectedLanguages, setSelectedLanguages] = useState([]);
+
+    const languageOptions = [
+        { value: 'javascript', label: 'JavaScript' },
+        { value: 'python', label: 'Python' },
+        { value: 'ruby', label: 'Ruby' },
+        { value: 'java', label: 'Java' },
+        { value: 'cpp', label: 'C++' },
+        { value: 'csharp', label: 'C#' },
+        { value: 'typescript', label: 'TypeScript' },
+        { value: 'php', label: 'PHP' },
+        { value: 'swift', label: 'Swift' },
+        { value: 'go', label: 'Go' },
+    ];
 
     useEffect(() => {
         const fetchKataPool = async () => {
@@ -31,7 +46,22 @@ const RandomKata = () => {
         
         setLoading(true);
         try {
-            const randomKata = kataPool[Math.floor(Math.random() * kataPool.length)];
+            let filteredPool = kataPool;
+            if (selectedLanguages.length > 0) {
+                filteredPool = kataPool.filter(kata => 
+                    kata.completedLanguages.some(lang => 
+                        selectedLanguages.map(sl => sl.value).includes(lang)
+                    )
+                );
+            }
+            
+            if (filteredPool.length === 0) {
+                alert('No katas found for selected languages. Try different languages.');
+                setLoading(false);
+                return;
+            }
+
+            const randomKata = filteredPool[Math.floor(Math.random() * filteredPool.length)];
             const response = await axios.get(`https://www.codewars.com/api/v1/code-challenges/${randomKata.id}`);
             setKata({
                 ...response.data,
@@ -51,6 +81,17 @@ const RandomKata = () => {
             </header>
             
             <div className="kata-container">
+                <div className="language-filter">
+                    <Select
+                        isMulti
+                        options={languageOptions}
+                        value={selectedLanguages}
+                        onChange={setSelectedLanguages}
+                        placeholder="Select languages..."
+                        className="language-select"
+                    />
+                </div>
+
                 <button 
                     onClick={getRandomKata}
                     disabled={loading}

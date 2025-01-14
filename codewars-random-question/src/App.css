@@ -202,6 +202,16 @@ body {
   background-color: #0056b3;
 }
 
+.language-filter {
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.language-select {
+  text-align: left;
+}
+
+
 @media (max-width: 768px) {
   .kata-grid {
     grid-template-columns: 1fr;
