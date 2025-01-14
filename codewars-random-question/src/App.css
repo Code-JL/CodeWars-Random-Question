@@ -1,61 +1,52 @@
 .App {
   text-align: center;
   padding: 20px;
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: calc(10px + 1vmin);
-}
-
-.question-container {
   max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
-button {
-  background-color: #1890ff;
+.kata-container {
+  margin-top: 20px;
+}
+
+.kata-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
   margin: 20px 0;
 }
 
-button:hover {
-  background-color: #40a9ff;
+.kata-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-.question-content {
+.kata-details {
   text-align: left;
+  margin-top: 20px;
   padding: 20px;
-  background-color: white;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  margin: 20px 0;
 }
 
-.question-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+.kata-details h2 {
+  color: #333;
 }
 
-a {
-  color: #1890ff;
+.kata-details a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
   text-decoration: none;
+  border-radius: 4px;
 }
 
-a:hover {
-  text-decoration: underline;
+.kata-details a:hover {
+  background-color: #0056b3;
 }
