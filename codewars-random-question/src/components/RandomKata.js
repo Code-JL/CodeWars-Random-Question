@@ -3,9 +3,6 @@ import axios from 'axios';
 import DOMPurify from 'dompurify';
 import { marked } from 'marked';
 import Select from 'react-select';
-import LoadingSpinner from './LoadingSpinner';
-import ThemeToggle from './ThemeToggle';
-import DifficultySelector from './DifficultySelector';
 
 const RandomKata = () => {
     const [kata, setKata] = useState(null);
@@ -13,8 +10,6 @@ const RandomKata = () => {
     const [expanded, setExpanded] = useState(false);
     const [kataPool, setKataPool] = useState([]);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
-    const [theme, setTheme] = useState('light');
-    const [selectedDifficulties, setSelectedDifficulties] = useState([]);
 
     const languageOptions = [
         { value: 'javascript', label: 'JavaScript' },
@@ -41,100 +36,59 @@ const RandomKata = () => {
         fetchKataPool();
     }, []);
 
-    useEffect(() => {
-        document.body.className = `theme-${theme}`;
-    }, [theme]);
-
-    const toggleTheme = () => {
-        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-    };
-
-    const handleDifficultyChange = (kyu) => {
-        setSelectedDifficulties(prev => 
-            prev.includes(kyu) 
-                ? prev.filter(k => k !== kyu)
-                : [...prev, kyu]
-        );
-    };
-
     const formatDescription = (description) => {
         const cleanHtml = DOMPurify.sanitize(marked(description));
         return cleanHtml;
     };
 
     const getRandomKata = async () => {
-      if (kataPool.length === 0) return;
-      
-      setLoading(true);
-      try {
-          let filteredPool = kataPool;
-          
-          // Detailed logging of the first kata in the pool
-          const sampleKata = filteredPool[0];
-          console.log('Full kata object:', sampleKata);
-          console.log('Rank property:', sampleKata.rank);
-          console.log('Selected difficulties:', selectedDifficulties);
-  
-          // Filter by languages
-          if (selectedLanguages.length > 0) {
-              filteredPool = filteredPool.filter(kata => 
-                  kata.completedLanguages.some(lang => 
-                      selectedLanguages.map(sl => sl.value).includes(lang)
-                  )
-              );
-          }
-  
-          // Filter by difficulties with logging
-          if (selectedDifficulties.length > 0) {
-              filteredPool = filteredPool.filter(kata => {
-                  console.log('Kata rank structure:', kata.rank);
-                  return selectedDifficulties.includes(kata.rank);
-              });
-          }
-  
-          console.log('Filtered pool size:', filteredPool.length);
-  
-          if (filteredPool.length === 0) {
-              alert('No katas found for selected filters. Try different options.');
-              setLoading(false);
-              return;
-          }
-  
-          const randomKata = filteredPool[Math.floor(Math.random() * filteredPool.length)];
-          const response = await axios.get(`https://www.codewars.com/api/v1/code-challenges/${randomKata.id}`);
-          setKata({
-              ...response.data,
-              description: formatDescription(response.data.description)
-          });
-      } catch (error) {
-          console.error('Error fetching kata:', error);
-      }
-      setLoading(false);
-  };
-  
+        if (kataPool.length === 0) return;
+        
+        setLoading(true);
+        try {
+            let filteredPool = kataPool;
+            if (selectedLanguages.length > 0) {
+                filteredPool = kataPool.filter(kata => 
+                    kata.completedLanguages.some(lang => 
+                        selectedLanguages.map(sl => sl.value).includes(lang)
+                    )
+                );
+            }
+            
+            if (filteredPool.length === 0) {
+                alert('No katas found for selected languages. Try different languages.');
+                setLoading(false);
+                return;
+            }
+
+            const randomKata = filteredPool[Math.floor(Math.random() * filteredPool.length)];
+            const response = await axios.get(`https://www.codewars.com/api/v1/code-challenges/${randomKata.id}`);
+            setKata({
+                ...response.data,
+                description: formatDescription(response.data.description)
+            });
+        } catch (error) {
+            console.error('Error fetching kata:', error);
+        }
+        setLoading(false);
+    };
+
     return (
         <>
-            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
             <header className="header">
                 <h1>Codewars Challenge Generator</h1>
                 <p>Level up your coding skills with random challenges</p>
             </header>
             
             <div className="kata-container">
-                <div className="filters-container">
-                    <div className="language-filter">
-                        <Select
-                            isMulti
-                            options={languageOptions}
-                            value={selectedLanguages}
-                            onChange={setSelectedLanguages}
-                            placeholder="Select languages..."
-                            className="language-select"
-                        />
-                    </div>
-                    <DifficultySelector 
-                        selectedDifficulties={selectedDifficulties}
-                        onChange={handleDifficultyChange}
+                <div className="language-filter">
+                    <Select
+                        isMulti
+                        options={languageOptions}
+                        value={selectedLanguages}
+                        onChange={setSelectedLanguages}
+                        placeholder="Select languages..."
+                        className="language-select"
                     />
                 </div>
 
@@ -143,7 +97,7 @@ const RandomKata = () => {
                     disabled={loading}
                     className="fetch-button"
                 >
-                    {loading ? <LoadingSpinner /> : 'Get Random Kata'}
+                    {loading ? 'Loading...' : 'Get Random Kata'}
                 </button>
 
                 {kata && (
