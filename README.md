@@ -2,14 +2,16 @@
 
 A powerful tool that generates random coding challenges from Codewars, helping developers enhance their programming skills through focused practice.
 
+## Website 🎥
+
+Check out the live website: [Codewars Random Question Generator](https://code-jl.github.io/CodeWars-Random-Question/)
+
 ## Features ✨
 
-- **Random Challenge Generation**: Get curated coding challenges from Codewars
-- **Multi-Language Support**: Filter challenges by your preferred programming languages
-- **Difficulty Selection**: Choose challenges based on kyu levels (1-8)
-- **Dark/Light Theme**: Toggle between themes for comfortable viewing
-- **Responsive Design**: Works seamlessly across all devices
-- **Interactive UI**: Modern, user-friendly interface with smooth animations
+- Random Challenge Generation: Get curated coding challenges from Codewars
+- Multi-Language Support: Filter challenges by your preferred programming languages
+- Responsive Design: Works seamlessly across all devices
+- Interactive UI: Modern, user-friendly interface with smooth animations
 
 ## Technologies Used 💻
 
@@ -41,10 +43,9 @@ npm start
 ## Usage 📖
 
 1. Select your preferred programming languages
-2. Choose difficulty levels
-3. Click "Get Random Kata" to generate a challenge
-4. Read the description and requirements
-5. Click "Solve this kata" to attempt the challenge on Codewars
+2. Click "Get Random Kata" to generate a challenge
+3. Read the description and requirements
+4. Click "Solve this kata" to attempt the challenge on Codewars
 
 ## Contributing 🤝
 
