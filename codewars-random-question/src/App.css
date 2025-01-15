@@ -189,7 +189,7 @@ body {
 
 .kata-description pre {
   background-color: #282c34;
-  color: #fff;
+  color: #e9ecef;
   padding: 15px;
   border-radius: 12px;
   overflow-x: auto;
@@ -212,10 +212,17 @@ body {
 }
 
 .kata-description code {
-  background-color: #e9ecef;
+  background-color: #282c34;
+  color: #e9ecef;
   padding: 2px 4px;
   border-radius: 6px;
-  font-family: monospace;
+  font-family: 'Fira Code', monospace;
+}
+
+.kata-description pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
 }
 
 /* Custom styling for react-select */
